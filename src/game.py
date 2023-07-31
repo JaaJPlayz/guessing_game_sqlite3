@@ -22,19 +22,9 @@ class Game:
         for index, difficulty in enumerate(difficulties):
             print(f"[{index}] {difficulty}")
             Game.line(20)
-        Game.line(20)
-
-    @staticmethod
-    def game_over_menu():
-        Game.line(20)
-        print("Game over.")
-        continue_game = str(input("Want to play again? [Y/N]: ")).strip().title()[0]
-        Game.line(20)
-        if continue_game == "Y":
-            return True
-        return False
 
     def full_game(self):
+        self.lives = 3
         Game.game_title()
         Game.difficulties_menu()
         difficulty = int(input("Choose a difficulty: "))
@@ -66,3 +56,21 @@ class Game:
                 print("You won!")
                 return
             print(f"Oops, wrong number. You have {self.lives} lives left. Try again!")
+            self.lives -= 1
+
+        Game.line(20)
+        print("You lost!")
+
+        Game.line(20)
+        continue_game = str(input("Want to play again? [Y/N]: ")).strip().title()[0]
+        if continue_game == "Y":
+            process_one = Game()
+            process_one.full_game()
+
+        elif continue_game == "N":
+            print("Thanks for playing!")
+            exit()
+
+
+process_one = Game()
+process_one.full_game()
